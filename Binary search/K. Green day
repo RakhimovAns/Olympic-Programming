@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    ll x1, y1, r1, x2, y2, r2;
+    cin >> x1 >> y1 >> r1 >> x2 >> y2 >> r2;
+    ll ans = 0;
+    for (ll x = x1 - r1; x < x1 + r1 + 1; x++)
+    {
+        if (x > x2 + r2 || x < x2 - r2)
+            continue;
+        ll y1l = y1 - sqrt(r1 * r1 - (x1 - x) * (x1 - x)) - 10;
+        while ((y1l - y1) * (y1l - y1) + (x1 - x) * (x1 - x) > r1 * r1)
+            y1l++;
+        ll y1h = y1 - sqrt(r1 * r1 - (x1 - x) * (x1 - x)) + 10;
+        while ((y1h - y1) * (y1h - y1) + (x1 - x) * (x1 - x) > r1 * r1)
+            y1h--;
+        ll y2l = y2 - sqrt(r2 * r2 - (x2 - x) * (x2 - x)) - 10;
+        while ((y2l - y2) * (y2l - y2) + (x2 - x) * (x2 - x) > r2 * r2)
+            y2l++;
+        ll y2h = y2 - sqrt(r2 * r2 - (x2 - x) * (x2 - x)) + 10;
+        while ((y2h - y2) * (y2h - y2) + (x2 - x) * (x2 - x) > r2 * r2)
+            y2h--;
+        if (!(y1h < y2l || y2h < y1l))
+            ans += abs(max(y1l, y2l) - min(y1h, y2h)) + 1;
+    }
+    cout << ans;
+}
